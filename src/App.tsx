@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import React from 'react';
+import { UseAppDispatch, UseAppSelector } from './app/hook';
+import { Incremented, amountIncrement } from './feature/counter/counter_slicer';
 import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const count = UseAppSelector((state)=> state.counter.value)
+  const dispatch = UseAppDispatch()
+
+  const handClick = () =>{
+    // for increment by initial value
+   // dispatch(Incremented());
+
+   // incrementing by anyAmount
+   dispatch(amountIncrement(20))
+  }
 
   return (
     <div className="App">
@@ -17,8 +28,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={handClick}>
+          count : {count}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
