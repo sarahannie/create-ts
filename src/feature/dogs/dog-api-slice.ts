@@ -11,6 +11,22 @@ interface Breed{
 
 
 
-const apislice = createApi({
-    
+export const apislice = createApi({
+    reducerPath:'api',
+    baseQuery: fetchBaseQuery({
+    baseUrl:"https://api.thedogapi.com/v1",
+        prepareHeaders(headers){
+            headers.set('x-api-key', DOG_API_KEY );
+            return headers
+        },
+    }),
+    endpoints(builder){
+        return{
+            fetchBreeds: builder.query<Breed[], number|void >({
+                query(limit=10){
+                    return `/breeds?limit=${limit}`;
+                },
+            }),
+        }
+    }
 })
