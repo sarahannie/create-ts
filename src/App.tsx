@@ -1,12 +1,14 @@
 import React from 'react';
 import { UseAppDispatch, UseAppSelector } from './app/hook';
 import { Incremented, amountIncrement } from './feature/counter/counter_slicer';
+import { useFetchBreedsQuery } from './feature/dogs/dog-api-slice';
 import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
   const count = UseAppSelector((state)=> state.counter.value)
   const dispatch = UseAppDispatch()
+  const {data = [], isFetching} = useFetchBreedsQuery(20);
 
   const handClick = () =>{
     // for increment by initial value
@@ -34,6 +36,29 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+      </div>
+      <div>
+        <p>
+          Number of dog fetched : {data.length}
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Picture</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              data.map((breed)=>(
+                <tr key={breed.id}>
+                  <td>{breed.name}</td>
+                  <td><img src={breed.image.url} alt={breed.name} height={250}/></td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more

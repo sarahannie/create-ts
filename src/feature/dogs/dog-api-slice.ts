@@ -11,7 +11,7 @@ interface Breed{
 
 
 
-export const apislice = createApi({
+export const apiSlice = createApi({
     reducerPath:'api',
     baseQuery: fetchBaseQuery({
     baseUrl:"https://api.thedogapi.com/v1",
@@ -30,3 +30,5 @@ export const apislice = createApi({
         }
     }
 })
+
+export const {useFetchBreedsQuery} = apiSlice
