@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UseAppDispatch, UseAppSelector } from './app/hook';
 import { Incremented, amountIncrement } from './feature/counter/counter_slicer';
 import { useFetchBreedsQuery } from './feature/dogs/dog-api-slice';
@@ -8,7 +8,8 @@ import './App.css'
 function App() {
   const count = UseAppSelector((state)=> state.counter.value)
   const dispatch = UseAppDispatch()
-  const {data = [], isFetching} = useFetchBreedsQuery(20);
+  const [numData, setnumDate] = useState(10);
+  const {data = [], isFetching} = useFetchBreedsQuery(numData);
 
   const handClick = () =>{
     // for increment by initial value
@@ -36,6 +37,17 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+      </div>
+      <div>
+        <p>Dog tto fetch:</p>
+        <select value={numData} onChange={(e)=> setnumDate(Number(e.target.value))}>
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+        </select>
       </div>
       <div>
         <p>
